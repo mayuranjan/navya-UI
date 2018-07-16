@@ -1,0 +1,12 @@
+.round-button {
+    border-radius: 50%;
+    float: right;
+}
+
+button:focus {
+    outline: none;
+}
+
+button {
+    margin: 2px;
+}

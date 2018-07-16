@@ -1,0 +1,13 @@
+.border-less {
+    border-width: 0 0 2px 0;
+    border-color: black;
+    border-style: dotted;
+}
+
+input:focus {
+    outline: none;
+}
+
+input {
+    font-size: 25px;
+}

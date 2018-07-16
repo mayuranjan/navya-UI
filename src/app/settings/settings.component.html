@@ -1,6 +1,8 @@
-<p>
-  settings works!
-  <app-question></app-question>
+<div *ngFor="let question of questions; let i=index">
+  <div>
+    <app-question [text]="question" (updatedText)="updateQuestion($event, i)"></app-question>
+    <app-button (add)="addNewQuestion(i)" (remove)="removeQuestion(i)" (selectedAnswerType)="setAnswerType($event, i)"></app-button>
+  </div>
   <app-multiple-choice></app-multiple-choice>
   <app-paragraph></app-paragraph>
-</p>
+</div>

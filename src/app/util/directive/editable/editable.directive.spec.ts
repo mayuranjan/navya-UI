@@ -1,8 +1,11 @@
 import { EditableDirective } from './editable.directive';
+import { ElementRef, Renderer } from '@angular/core';
 
 describe('EditableDirective', () => {
   it('should create an instance', () => {
-    const directive = new EditableDirective();
+    var el: ElementRef;
+    var renderer: Renderer;
+    const directive = new EditableDirective(el, renderer);
     expect(directive).toBeTruthy();
   });
 });

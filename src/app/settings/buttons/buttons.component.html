@@ -1,0 +1,17 @@
+<button class="btn btn-primary round-button" type="button" (click)="addQuestion()">
+    <span class="glyphicon glyphicon-plus"></span>
+</button>
+<button class="btn btn-primary round-button" type="button" (click)="removeQuestion()">
+    <span class="glyphicon glyphicon-trash"></span>
+</button>
+
+<span style="float: right;" class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{selectedAnswerTypeValue}}
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+        <li *ngFor="let answerType of answerTypes">
+            <a style="cursor: pointer;" (click)="setAnswerType(answerType)">{{answerType}}</a>
+        </li>
+    </ul>
+</span>
