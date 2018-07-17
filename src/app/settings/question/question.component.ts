@@ -1,31 +1,33 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'app-question',
   templateUrl: './question.component.html',
   styleUrls: ['./question.component.css']
 })
-export class QuestionComponent implements OnInit {
+export class QuestionComponent implements OnChanges {
 
   @Input() text: string;
+  @Input() mode: string;
   @Output() updatedText = new EventEmitter();
 
   @ViewChild('question') question: ElementRef;
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnChanges() {
+    if (this.mode != undefined) {
+      switch (this.mode) {
+        case 'view':
+          
+          break;
+        case 'edit':
 
-
-  /**
-   * onFocus
-   */
-  public onFocus() {
-    setTimeout(() => {
-      console.log(this.question);
-      this.question.nativeElement.select();
-    }, 50);
+          break;
+        default:
+          break;
+      }
+    }
   }
 
   /**

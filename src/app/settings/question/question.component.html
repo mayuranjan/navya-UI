@@ -1,2 +1,2 @@
 <br>
-<input #question class="border-less" (focus)="onFocus()" appEditable (change)="updateText()" [(ngModel)]="text">
+<input #question class="border-less" [readonly]="mode == 'view'" appEditable (change)="updateText()" [(ngModel)]="text">

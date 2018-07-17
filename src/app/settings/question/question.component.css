@@ -10,4 +10,5 @@ input:focus {
 
 input {
     font-size: 25px;
+    width: 75%;
 }

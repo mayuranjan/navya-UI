@@ -7,10 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingsComponent implements OnInit {
 
-  public questions: Array<string> = new Array<string>();
+  public qaSets: Array<QASet> = new Array<QASet>();
 
   constructor() {
-    this.questions.push('Untitled Question');
+    this.qaSets.push(new QASet());
   }
 
   ngOnInit() {
@@ -20,15 +20,15 @@ export class SettingsComponent implements OnInit {
    * addNewQuestion
    */
   public addNewQuestion(index: number) {
-    this.questions.push('Untitled Question');
+    this.qaSets.push(new QASet());
   }
 
   /**
    * removeQuestion
    */
   public removeQuestion(index: number) {
-    this.questions.splice(index, 1);
-    console.log(this.questions);
+    this.qaSets.splice(index, 1);
+    console.log(this.qaSets);
     console.log(index);
   }
 
@@ -36,14 +36,14 @@ export class SettingsComponent implements OnInit {
    * updateQuestion
    */
   public updateQuestion(updatedQuestion: string, index: number) {
-    this.questions[index] = updatedQuestion;
+    this.qaSets[index].question = updatedQuestion;
   }
 
   /**
    * setAnswerType
    */
   public setAnswerType(answerType: string, index: number) {
-    
+    this.qaSets[index].answerType = answerType;
   }
 
 }
@@ -53,6 +53,11 @@ class QASet {
   public answerType: string;
   public paragraph: Paragraph;
   public multipleChoice: Array<MultipleChoice>;
+
+  constructor() {
+    this.question = "Untitled Question";
+    this.answerType = "Paragraph";
+  }
 }
 
 class Paragraph {
