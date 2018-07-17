@@ -10,7 +10,7 @@ export class SettingsComponent implements OnInit {
   public questions: Array<string> = new Array<string>();
 
   constructor() {
-    this.questions.push("Untitled Question");
+    this.questions.push('Untitled Question');
   }
 
   ngOnInit() {
@@ -20,7 +20,7 @@ export class SettingsComponent implements OnInit {
    * addNewQuestion
    */
   public addNewQuestion(index: number) {
-    this.questions.push("Untitled Question");
+    this.questions.push('Untitled Question');
   }
 
   /**

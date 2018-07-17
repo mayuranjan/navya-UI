@@ -12,11 +12,11 @@ export class ButtonsComponent implements OnInit {
   @Output() selectedAnswerType = new EventEmitter();
 
   public answerTypes: Array<string> = new Array<string>();
-  public selectedAnswerTypeValue: string = "Paragraph";
+  public selectedAnswerTypeValue = 'Paragraph';
 
   constructor() {
-    this.answerTypes.push("Paragraph");
-    this.answerTypes.push("Multiple Choice");
+    this.answerTypes.push('Paragraph');
+    this.answerTypes.push('Multiple Choice');
   }
 
   ngOnInit() {

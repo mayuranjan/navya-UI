@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-question',
@@ -10,11 +10,24 @@ export class QuestionComponent implements OnInit {
   @Input() text: string;
   @Output() updatedText = new EventEmitter();
 
+  @ViewChild('question') question: ElementRef;
+
   constructor() { }
 
   ngOnInit() {
   }
-  
+
+
+  /**
+   * onFocus
+   */
+  public onFocus() {
+    setTimeout(() => {
+      console.log(this.question);
+      this.question.nativeElement.select();
+    }, 50);
+  }
+
   /**
    * updateText
    */
