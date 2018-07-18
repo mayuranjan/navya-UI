@@ -55,8 +55,8 @@ class QASet {
   public multipleChoice: Array<MultipleChoice>;
 
   constructor() {
-    this.question = "Untitled Question";
-    this.answerType = "Paragraph";
+    this.question = 'Untitled Question';
+    this.answerType = 'Paragraph';
   }
 }
 
