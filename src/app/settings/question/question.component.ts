@@ -11,18 +11,14 @@ export class QuestionComponent implements OnChanges {
   @Input() mode: string;
   @Output() updatedText = new EventEmitter();
 
-  @ViewChild('question') question: ElementRef;
-
   constructor() { }
 
   ngOnChanges() {
-    if (this.mode != undefined) {
+    if (this.mode !== undefined) {
       switch (this.mode) {
         case 'view':
-          
           break;
         case 'edit':
-
           break;
         default:
           break;

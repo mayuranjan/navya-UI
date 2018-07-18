@@ -12,3 +12,7 @@ input {
     font-size: 20px;
     width: 75%;
 }
+
+.pointerMouse {
+    cursor: auto;
+}
