@@ -1,3 +1,17 @@
-.center {
-    text-align: center;
+div.qa-set-outer {
+    width: 80%;
+    margin:0 auto;
+    border: solid 2px black;
+    padding: 10px;
+}
+
+div.qa-set-middle:hover {
+    box-shadow: 0px -6px 6px 0px #97bde2;
+    margin-top: 10px;
+}
+
+div.qa-set-inner:hover {
+    border-left: 5px solid lightseagreen;
+    box-shadow: 0px 6px 6px 0px #97bde2;
+    margin-bottom: 10px;
 }

@@ -1,7 +1,14 @@
 .border-less {
+    border-bottom: solid 1px gray;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+}
+
+input.border-less:hover {
     border-width: 0 0 2px 0;
     border-color: black;
-    border-style: solid;
+    border-style: dotted;
 }
 
 input:focus {

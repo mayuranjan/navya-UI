@@ -1,8 +1,12 @@
-<div *ngFor="let qaSet of qaSets; let i=index">
-  <div>
-    <app-question [mode]="'edit'" [text]="qaSet.question" (updatedText)="updateQuestion($event, i)"></app-question>
-    <app-button (add)="addNewQuestion(i)" (remove)="removeQuestion(i)" (selectedAnswerType)="setAnswerType($event, i)"></app-button>
+<div class="qa-set-outer">
+  <div class="qa-set-middle" *ngFor="let qaSet of qaSets; let i=index">
+    <div class="qa-set-inner">
+      <div>
+        <app-question [mode]="'edit'" [text]="qaSet.question" (updatedText)="updateQuestion($event, i)"></app-question>
+        <app-button (add)="addNewQuestion(i)" (remove)="removeQuestion(i)" (selectedAnswerType)="setAnswerType($event, i)"></app-button>
+      </div>
+      <app-multiple-choice [mode]="'edit'" *ngIf="qaSet.answerType == 'Multiple Choice'"></app-multiple-choice>
+      <app-paragraph [mode]="'edit'" *ngIf="qaSet.answerType == 'Paragraph'"></app-paragraph>
+    </div>
   </div>
-  <app-multiple-choice [mode]="'edit'" *ngIf="qaSet.answerType == 'Multiple Choice'"></app-multiple-choice>
-  <app-paragraph [mode]="'edit'" *ngIf="qaSet.answerType == 'Paragraph'"></app-paragraph>
 </div>
