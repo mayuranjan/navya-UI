@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-paragraph',
@@ -9,7 +9,8 @@ export class ParagraphComponent implements OnChanges {
 
   @Input() text: string;
   @Input() mode: string;
-  @Output() updatedText = new EventEmitter();
+  public paragraphAnswer: string = "";
+  public updatedParagraphText = new EventEmitter();
 
   constructor() { }
 
@@ -20,7 +21,7 @@ export class ParagraphComponent implements OnChanges {
 
           break;
         case 'edit':
-          this.text = 'Long-answer text';
+          this.paragraphAnswer = "Long answer text";
           break;
         default:
           break;
@@ -29,10 +30,9 @@ export class ParagraphComponent implements OnChanges {
   }
 
   /**
-   * updateText
+   * updateParagraphText
    */
-  public updateText() {
-    this.updatedText.emit(this.text);
+  public updateParagraphText() {
+    this.updatedParagraphText.emit(this.paragraphAnswer);
   }
-
 }

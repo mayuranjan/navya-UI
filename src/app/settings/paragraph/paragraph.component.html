@@ -1,2 +1,2 @@
 <br>
-<input class="border-less" [class.pointerMouse]="mode == 'edit'" placeholder="Your Answer" [readonly]="mode == 'edit'" (change)="updateText()" [(ngModel)]="text">
+<input class="border-less" placeholder="Your Answer" (change)="updateParagraphText()" [(ngModel)]="paragraphAnswer">
