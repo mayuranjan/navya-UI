@@ -2,8 +2,14 @@
     border: none;
 }
 
-input.border-less:hover {
-    border-width: 0 0 2px 0;
+input.with-border {
+    border-width: 0 0 1px 0;
+    border-color: gray;
+    border-style: solid;
+}
+
+input.with-border:hover {
+    border-width: 0 0 1px 0;
     border-color: black;
     border-style: dotted;
 }

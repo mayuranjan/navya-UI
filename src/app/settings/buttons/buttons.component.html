@@ -1,18 +1,18 @@
-<button class="btn btn-primary round-button" type="button" (click)="addQuestion()">
+<button title="Add Question" class="btn btn-primary round-button" type="button" (click)="addQuestion()">
     <span class="glyphicon glyphicon-plus"></span>
 </button>
-<button class="btn btn-primary round-button" type="button" (click)="removeQuestion()">
+<button title="Delete Question" class="btn btn-primary round-button" type="button" (click)="removeQuestion()">
     <span class="glyphicon glyphicon-trash"></span>
 </button>
 
 <label class="switch-label">Required</label>
-<label class="switch">
+<label title="Is Required" class="switch">
     <input type="checkbox">
     <span class="slider round"></span>
 </label>
 
 <span style="float: right;" class="dropdown">
-    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{selectedAnswerTypeValue}}
+    <button title="Change Answer Type" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{selectedAnswerTypeValue}}
         <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">

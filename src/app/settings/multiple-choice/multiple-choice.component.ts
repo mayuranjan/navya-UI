@@ -9,6 +9,7 @@ export class MultipleChoiceComponent implements OnChanges {
 
   @Input() text: string;
   @Input() mode: string;
+  @Input() isActiveQA: boolean;
 
   public options: Array<Option> = new Array<Option>();
 
@@ -20,11 +21,13 @@ export class MultipleChoiceComponent implements OnChanges {
   ngOnChanges() {
     if (this.mode !== undefined) {
       switch (this.mode) {
-        case 'view':
-
+        case 'create':
           break;
         case 'edit':
-
+          break;
+        case 'view':
+          break;
+        case 'response':
           break;
         default:
           break;

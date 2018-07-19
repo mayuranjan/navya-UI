@@ -7,7 +7,9 @@ import { EndUserComponent } from './end-user/end-user.component';
 const routes: Routes = [
   { path: '', redirectTo: '/form/edit', pathMatch: 'full' },
   { path: 'form/edit', component: SettingsComponent },
-  { path: 'form/view', component: EndUserComponent }
+  { path: 'form/edit/:id', component: SettingsComponent },
+  { path: 'form/view', component: EndUserComponent },
+  { path: 'form/view/:id', component: EndUserComponent }
 ];
 
 @NgModule({

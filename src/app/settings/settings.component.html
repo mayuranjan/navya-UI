@@ -1,12 +1,23 @@
 <div class="qa-set-outer">
-  <div class="qa-set-middle" *ngFor="let qaSet of qaSets; let i=index">
-    <div class="qa-set-inner">
+  <div *ngFor="let qaSet of qaSets; let i=index" (click)="setQASetActive(i)" [class.qa-set-middle]="qaSet.isActive">
+    <div [class.qa-set-inner]="qaSet.isActive">
       <div>
-        <app-question [mode]="'edit'" [text]="qaSet.question" (updatedText)="updateQuestion($event, i)"></app-question>
-        <app-button (add)="addNewQuestion(i)" (remove)="removeQuestion(i)" (selectedAnswerType)="setAnswerType($event, i)"></app-button>
+        <app-question [mode]="mode" [text]="qaSet.question" [isActiveQA]="qaSet.isActive" (updatedText)="updateQuestion($event, i)"></app-question>
+        <app-button *ngIf="qaSet.isActive" (add)="addNewQuestion(i)" (remove)="removeQuestion(i)" (selectedAnswerType)="setAnswerType($event, i)"></app-button>
       </div>
-      <app-multiple-choice [mode]="'edit'" *ngIf="qaSet.answerType == 'Multiple Choice'"></app-multiple-choice>
-      <app-paragraph [mode]="'edit'" *ngIf="qaSet.answerType == 'Paragraph'"></app-paragraph>
+      <app-multiple-choice [mode]="mode" [isActiveQA]="qaSet.isActive" *ngIf="qaSet.answerType == 'Multiple Choice'"></app-multiple-choice>
+      <app-paragraph [mode]="mode" [isActiveQA]="qaSet.isActive" *ngIf="qaSet.answerType == 'Paragraph'"></app-paragraph>
     </div>
+  </div>
+
+  <div>
+    <button *ngIf="mode == 'create'" style="float: right;" title="Save" (click)="save()" class="btn btn-success">
+      <span class="glyphicon glyphicon-floppy-disk"></span>
+      Save
+    </button>
+    <button *ngIf="mode == 'edit'" style="float: right;" title="Save" (click)="edit()" class="btn btn-success">
+      <span class="glyphicon glyphicon-edit"></span>
+      Edit
+    </button>
   </div>
 </div>

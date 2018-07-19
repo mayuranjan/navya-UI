@@ -1,9 +1,9 @@
 <form>
   <div *ngFor="let option of options; let i=index" class="radio">
     <label class="navya-radio-text">
-      <input type="radio" class="navya-radio" name="optradio{{i}}" [disabled]="mode == 'edit'">
+      <input type="radio" class="navya-radio" name="optradio{{i}}" [disabled]="mode == 'create'">
       <input type="text" appEditable class="border-less navya-radio-text" name="radioText{{i}}" (click)="addOption(i)" [(ngModel)]="option.label">
-      <button *ngIf="(i >= 1 || options.length > 2) && (i != (options.length -1))" class="btn btn-primary round-button" type="button" (click)="removeOption(i)">
+      <button *ngIf="(i >= 1 || options.length > 2) && (i != (options.length -1)) && this.isActiveQA" class="btn btn-primary round-button" type="button" (click)="removeOption(i)">
         <span class="glyphicon glyphicon-remove"></span>
       </button>
     </label>

@@ -1,14 +1,8 @@
 .border-less {
-    border-bottom: solid 1px gray;
+    border-bottom: dotted 1px gray;
     border-top: none;
     border-right: none;
     border-left: none;
-}
-
-input.border-less:hover {
-    border-width: 0 0 2px 0;
-    border-color: black;
-    border-style: dotted;
 }
 
 input:focus {
@@ -18,6 +12,8 @@ input:focus {
 input {
     font-size: 20px;
     width: 75%;
+    color: gray;
+    margin-bottom: 10px;
 }
 
 .pointerMouse {
