@@ -3,21 +3,23 @@
     <div [class.qa-set-inner]="qaSet.isActive">
       <div>
         <app-question [mode]="mode" [text]="qaSet.question" [isActiveQA]="qaSet.isActive" (updatedText)="updateQuestion($event, i)"></app-question>
-        <app-button *ngIf="qaSet.isActive" (add)="addNewQuestion(i)" (remove)="removeQuestion(i)" (selectedAnswerType)="setAnswerType($event, i)"></app-button>
+        <app-button *ngIf="qaSet.isActive" [selectedAnswerTypeValue]="qaSet.answerType" [isRequiredValue]="qaSet.isRequired" (add)="addNewQuestion(i)"
+          (remove)="removeQuestion(i)" (selectedAnswerType)="setAnswerType($event, i)" (isRequired)="setIsQuestionRequired($event, i)"></app-button>
       </div>
-      <app-multiple-choice [mode]="mode" [isActiveQA]="qaSet.isActive" *ngIf="qaSet.answerType == 'Multiple Choice'"></app-multiple-choice>
+      <app-multiple-choice [mode]="mode" [isActiveQA]="qaSet.isActive" *ngIf="qaSet.answerType == 'Multiple Choice'" [options]="qaSet.multipleChoice"
+        (optionSet)="setMultipleChoiceOptions($event, i)"></app-multiple-choice>
       <app-paragraph [mode]="mode" [isActiveQA]="qaSet.isActive" *ngIf="qaSet.answerType == 'Paragraph'"></app-paragraph>
     </div>
   </div>
 
   <div>
     <button *ngIf="mode == 'create'" style="float: right;" title="Save" (click)="save()" class="btn btn-success">
-      <span class="glyphicon glyphicon-floppy-disk"></span>
-      Save
+      <span class="glyphicon glyphicon-send"></span>
+      Publish
     </button>
     <button *ngIf="mode == 'edit'" style="float: right;" title="Save" (click)="edit()" class="btn btn-success">
-      <span class="glyphicon glyphicon-edit"></span>
-      Edit
+      <span class="glyphicon glyphicon-send"></span>
+      Publish
     </button>
   </div>
 </div>

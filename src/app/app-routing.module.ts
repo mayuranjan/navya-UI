@@ -8,8 +8,8 @@ const routes: Routes = [
   { path: '', redirectTo: '/form/edit', pathMatch: 'full' },
   { path: 'form/edit', component: SettingsComponent },
   { path: 'form/edit/:id', component: SettingsComponent },
-  { path: 'form/view', component: EndUserComponent },
-  { path: 'form/view/:id', component: EndUserComponent }
+  { path: 'form/view/:id', component: EndUserComponent },
+  { path: 'form/view/:id/:responseId', component: EndUserComponent }
 ];
 
 @NgModule({

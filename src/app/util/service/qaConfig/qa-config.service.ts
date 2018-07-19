@@ -1,13 +1,12 @@
-import { Injectable } from '@angular/core';
-import { Http, Jsonp } from '../../../../../node_modules/@angular/http';
-import { QASet } from '../../../settings/settings.component';
+import { Injectable } from "@angular/core";
+import { Http, Jsonp } from "../../../../../node_modules/@angular/http";
+import { QASet } from "../../../settings/settings.component";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class QaConfigService {
-
-  constructor(private _http: Http) { }
+  constructor(private _http: Http) {}
 
   /**
    * saveQAConfig
@@ -15,29 +14,34 @@ export class QaConfigService {
   public saveQAConfig(qaConfig: Array<QASet>): number {
     // this._http.post();
     let config: Array<any>;
-    if (localStorage.getItem('qaSetConfigurations') === null) {
-      config = [{ 'id': this.generateID(), 'value': qaConfig }];
+    if (localStorage.getItem("qaSetConfigurations") === null) {
+      config = [{ id: this.generateID(), value: qaConfig }];
     } else {
-      config = JSON.parse(localStorage.getItem('qaSetConfigurations'));
-      config.push({ 'id': this.generateID(), 'value': qaConfig });
+      config = JSON.parse(localStorage.getItem("qaSetConfigurations"));
+      config.push({ id: this.generateID(), value: qaConfig });
     }
-    localStorage.setItem('qaSetConfigurations', JSON.stringify(config));
+    localStorage.setItem("qaSetConfigurations", JSON.stringify(config));
 
-    return config[config.length].id;
+    return config[config.length - 1].id;
   }
 
   /**
    * updateQAConfig
    */
   public updateQAConfig(qaConfig: Array<QASet>, id: number) {
-    const qaSetConfigurations = JSON.parse(localStorage.getItem('qaSetConfigurations'));
+    const qaSetConfigurations = JSON.parse(
+      localStorage.getItem("qaSetConfigurations")
+    );
     qaSetConfigurations.forEach(qaSetConfiguration => {
       if (qaSetConfiguration.id === Number(id)) {
         qaSetConfiguration.value = qaConfig;
       }
     });
 
-    localStorage.setItem('qaSetConfigurations', JSON.stringify(qaSetConfigurations));
+    localStorage.setItem(
+      "qaSetConfigurations",
+      JSON.stringify(qaSetConfigurations)
+    );
   }
 
   /**
@@ -45,7 +49,9 @@ export class QaConfigService {
    */
   public getQAConfig(id: number): Array<QASet> {
     let qaConfig: Array<QASet>;
-    const qaSetConfigurations = JSON.parse(localStorage.getItem('qaSetConfigurations'));
+    const qaSetConfigurations = JSON.parse(
+      localStorage.getItem("qaSetConfigurations")
+    );
     qaSetConfigurations.forEach(qaSetConfiguration => {
       if (qaSetConfiguration.id === Number(id)) {
         qaConfig = qaSetConfiguration.value;
@@ -56,8 +62,11 @@ export class QaConfigService {
   }
 
   private generateID(): number {
-    const qaSetConfigurations = localStorage.getItem('qaSetConfigurations');
-    const count = JSON.parse(qaSetConfigurations) == null ? 0 : JSON.parse(qaSetConfigurations).length;
+    const qaSetConfigurations = localStorage.getItem("qaSetConfigurations");
+    const count =
+      JSON.parse(qaSetConfigurations) == null
+        ? 0
+        : JSON.parse(qaSetConfigurations).length;
     return count;
   }
 }

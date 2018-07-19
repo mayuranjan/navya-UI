@@ -1,18 +1,19 @@
 <div class="qa-set-outer">
-    <div *ngFor="let qaSet of qaSets; let i=index" [class.qa-set-middle]="qaSet.isActive">
-      <div [class.qa-set-inner]="qaSet.isActive">
-        <div>
-          <app-question [mode]="'edit'" [text]="qaSet.question"></app-question>
-        </div>
-        <app-multiple-choice [mode]="'edit'" *ngIf="qaSet.answerType == 'Multiple Choice'"></app-multiple-choice>
-        <app-paragraph [mode]="'edit'" *ngIf="qaSet.answerType == 'Paragraph'"></app-paragraph>
-      </div>
-    </div>
-  
+  <div *ngFor="let qaSet of qaSets; let i=index">
     <div>
-      <button style="float: right;" title="Save" class="btn btn-success">
-        <span class="glyphicon glyphicon-floppy-disk"></span>
-        Save
-      </button>
+      <div>
+        <app-question [mode]="mode" [text]="qaSet.question" (updatedText)="updateQuestion($event, i)"></app-question>
+      </div>
+      <app-multiple-choice [mode]="mode" *ngIf="qaSet.answerType == 'Multiple Choice'" [options]="qaSet.multipleChoice"
+        (optionSet)="setMultipleChoiceOptions($event, i)"></app-multiple-choice>
+      <app-paragraph [mode]="mode" *ngIf="qaSet.answerType == 'Paragraph'"></app-paragraph>
     </div>
   </div>
+
+  <div>
+    <button *ngIf="mode == 'view'" style="float: right;" title="Submit" (click)="save()" class="btn btn-success">
+      <span class="glyphicon glyphicon-send"></span>
+      Submit
+    </button>
+  </div>
+</div>

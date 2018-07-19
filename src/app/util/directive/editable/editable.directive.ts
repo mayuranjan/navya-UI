@@ -1,16 +1,25 @@
-import { Directive, ElementRef, HostListener, Renderer } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  HostListener,
+  Renderer,
+  Input
+} from "@angular/core";
 
 @Directive({
-  selector: '[appEditable]'
+  selector: "[appEditable]"
 })
 export class EditableDirective {
+  @Input("appEditable") mode;
 
-  constructor(private el: ElementRef, private renderer: Renderer) { }
+  constructor(private el: ElementRef, private renderer: Renderer) {}
 
-  @HostListener('focus') onFocus() {
-    setTimeout(() => {
-      this.el.nativeElement.select();
-    }, 50);
+  @HostListener("focus")
+  onFocus() {
+    if (this.mode === "create" || this.mode === "edit") {
+      setTimeout(() => {
+        this.el.nativeElement.select();
+      }, 50);
+    }
   }
-
 }

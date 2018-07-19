@@ -1,26 +1,27 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
 
 @Component({
-  selector: 'app-button',
-  templateUrl: './buttons.component.html',
-  styleUrls: ['./buttons.component.css']
+  selector: "app-button",
+  templateUrl: "./buttons.component.html",
+  styleUrls: ["./buttons.component.css"]
 })
 export class ButtonsComponent implements OnInit {
+  @Input() selectedAnswerTypeValue = "Paragraph";
+  @Input() isRequiredValue = false;
 
   @Output() add = new EventEmitter();
   @Output() remove = new EventEmitter();
   @Output() selectedAnswerType = new EventEmitter();
+  @Output() isRequired = new EventEmitter();
 
   public answerTypes: Array<string> = new Array<string>();
-  public selectedAnswerTypeValue = 'Paragraph';
 
   constructor() {
-    this.answerTypes.push('Paragraph');
-    this.answerTypes.push('Multiple Choice');
+    this.answerTypes.push("Paragraph");
+    this.answerTypes.push("Multiple Choice");
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   /**
    * addQuestion
@@ -44,4 +45,10 @@ export class ButtonsComponent implements OnInit {
     this.selectedAnswerTypeValue = answerType;
   }
 
+  /**
+   * setIsRequired
+   */
+  public setIsRequired() {
+    this.isRequired.emit(this.isRequiredValue);
+  }
 }

@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ParagraphComponent } from './paragraph.component';
 
 describe('ParagraphComponent', () => {
