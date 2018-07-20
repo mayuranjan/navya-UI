@@ -1,13 +1,13 @@
-import { Component, OnInit } from "@angular/core";
-import { QaConfigService } from "../util/service/qaConfig/qa-config.service";
-import { ActivatedRoute, Router } from "../../../node_modules/@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { QaConfigService } from '../util/service/qaConfig/qa-config.service';
+import { ActivatedRoute, Router } from '../../../node_modules/@angular/router';
 
-import swal from "sweetalert2";
+import swal from 'sweetalert2';
 
 @Component({
-  selector: "app-settings",
-  templateUrl: "./settings.component.html",
-  styleUrls: ["./settings.component.css"]
+  selector: 'app-settings',
+  templateUrl: './settings.component.html',
+  styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent implements OnInit {
   public qaSets: Array<QASet> = new Array<QASet>();
@@ -20,13 +20,13 @@ export class SettingsComponent implements OnInit {
     protected _router: Router
   ) {
     this._activatedRoute.params.subscribe(params => {
-      if (params["id"] !== undefined) {
-        this.qaSets = this.qaConfigService.getQAConfig(params["id"]);
-        this.mode = "edit";
-        this.id = Number(params["id"]);
+      if (params['id'] !== undefined) {
+        this.qaSets = this.qaConfigService.getQAConfig(params['id']);
+        this.mode = 'edit';
+        this.id = Number(params['id']);
       } else {
         this.qaSets.push(new QASet());
-        this.mode = "create";
+        this.mode = 'create';
       }
     });
   }
@@ -84,14 +84,14 @@ export class SettingsComponent implements OnInit {
   public save() {
     const id = this.qaConfigService.saveQAConfig(this.qaSets);
     swal({
-      position: "top-end",
-      type: "success",
-      title: "Published Successfully",
+      position: 'top-end',
+      type: 'success',
+      title: 'Published Successfully',
       showConfirmButton: false,
       timer: 1000
     });
 
-    this._router.navigate(["/form/edit", id]);
+    this._router.navigate(['/form/edit', id]);
   }
 
   /**
@@ -99,43 +99,38 @@ export class SettingsComponent implements OnInit {
    */
   public edit() {
     this.qaConfigService.updateQAConfig(this.qaSets, this.id);
-    swal("Success", "Edited Successfully", "success");
+    swal('Success', 'Edited Successfully', 'success');
   }
 
   /**
    * setIsQuestionRequired
    */
   public setIsQuestionRequired(isQuestionRequired: boolean, index: number) {
-    this.qaSets[index]["isRequired"] = isQuestionRequired;
+    this.qaSets[index]['isRequired'] = isQuestionRequired;
   }
-  
+
   /**
    * setMultipleChoiceOptions
    */
   public setMultipleChoiceOptions(options: Array<MultipleChoice>, index: number) {
-    this.qaSets[index]["multipleChoice"] = options;
+    this.qaSets[index]['multipleChoice'] = options;
   }
 }
 
 export class QASet {
   public question: string;
   public answerType: string;
-  public paragraph: Paragraph;
   public isActive: boolean;
   public isRequired: boolean;
   public multipleChoice: Array<MultipleChoice>;
 
   constructor() {
-    this.question = "Untitled Question";
-    this.answerType = "Paragraph";
+    this.question = 'Untitled Question';
+    this.answerType = 'Paragraph';
     this.isActive = true;
     this.isRequired = false;
     this.multipleChoice = new Array<MultipleChoice>();
   }
-}
-
-class Paragraph {
-  public answer: string;
 }
 
 class MultipleChoice {

@@ -4,33 +4,35 @@ import {
   OnChanges,
   Output,
   EventEmitter
-} from "@angular/core";
+} from '@angular/core';
 
 @Component({
-  selector: "app-multiple-choice",
-  templateUrl: "./multiple-choice.component.html",
-  styleUrls: ["./multiple-choice.component.css"]
+  selector: 'app-multiple-choice',
+  templateUrl: './multiple-choice.component.html',
+  styleUrls: ['./multiple-choice.component.css']
 })
 export class MultipleChoiceComponent implements OnChanges {
   @Input() text: string;
   @Input() mode: string;
   @Input() isActiveQA: boolean;
   @Input() options: Array<Option>;
+  @Input() selectedOptionIndex: number;
 
   @Output() optionSet = new EventEmitter();
+  @Output() updateSelectionOption = new EventEmitter();
 
   constructor() {}
 
   ngOnChanges() {
     if (this.mode !== undefined) {
       switch (this.mode) {
-        case "create":
+        case 'create':
           break;
-        case "edit":
+        case 'edit':
           break;
-        case "view":
+        case 'view':
           break;
-        case "response":
+        case 'response':
           break;
         default:
           break;
@@ -38,14 +40,14 @@ export class MultipleChoiceComponent implements OnChanges {
     }
 
     if (this.options !== undefined && this.options.length === 0) {
-      this.options.push(new Option("Option 1"));
+      this.options.push(new Option('Option 1'));
       this.options.push(new Option());
     }
   }
 
   /**
    * removeOption
-   * index: number   */
+   */
   public removeOption(index: number) {
     this.options.splice(index, 1);
 
@@ -53,14 +55,21 @@ export class MultipleChoiceComponent implements OnChanges {
   }
 
   /**
+   * onSelectionChange
+   */
+  public onSelectionChange(index: number) {
+    this.updateSelectionOption.emit(index);
+  }
+
+  /**
    * addOption
-   * index: number   */
+   */
   public addOption(index: number) {
     if (this.mode === 'create' || this.mode === 'edit') {
       if (index === this.options.length - 1) {
-        const label = "Option " + this.options.length;
+        const label = 'Option ' + this.options.length;
         this.options.push(new Option());
-        if (this.options[index].label === "Add option") {
+        if (this.options[index].label === 'Add option') {
           this.options[index].label = label;
         }
       }
@@ -78,7 +87,7 @@ class Option {
     if (label !== undefined) {
       this.label = label;
     } else {
-      this.label = "Add option";
+      this.label = 'Add option';
     }
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Input, EventEmitter } from '@angular/core';
+import { Component, OnChanges, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-paragraph',
@@ -10,8 +10,9 @@ export class ParagraphComponent implements OnChanges {
   @Input() text: string;
   @Input() mode: string;
   @Input() isActiveQA: boolean;
+  @Output() updatedParagraphText = new EventEmitter();
+
   public paragraphAnswer: string;
-  public updatedParagraphText = new EventEmitter();
 
   constructor() { }
 

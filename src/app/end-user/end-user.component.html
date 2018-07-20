@@ -5,13 +5,13 @@
         <app-question [mode]="mode" [text]="qaSet.question" (updatedText)="updateQuestion($event, i)"></app-question>
       </div>
       <app-multiple-choice [mode]="mode" *ngIf="qaSet.answerType == 'Multiple Choice'" [options]="qaSet.multipleChoice"
-        (optionSet)="setMultipleChoiceOptions($event, i)"></app-multiple-choice>
-      <app-paragraph [mode]="mode" *ngIf="qaSet.answerType == 'Paragraph'"></app-paragraph>
+        (optionSet)="setMultipleChoiceOptions($event, i)" [selectedOptionIndex]="response === undefined ? -1 : response.answers[i].multipleChoiceIndex" (updateSelectionOption)="setMultipleChoiceAnswer($event, i)" ></app-multiple-choice>
+      <app-paragraph [mode]="mode" *ngIf="qaSet.answerType == 'Paragraph'" (updatedParagraphText)="setParagraphAnswer($event, i)"></app-paragraph>
     </div>
   </div>
 
   <div>
-    <button *ngIf="mode == 'view'" style="float: right;" title="Submit" (click)="save()" class="btn btn-success">
+    <button *ngIf="mode == 'view'" style="float: right;" title="Submit" (click)="submitResponse()" class="btn btn-success">
       <span class="glyphicon glyphicon-send"></span>
       Submit
     </button>
