@@ -1,25 +1,79 @@
+<div *ngIf="mode == 'publish'" class="qa-set-outer" style="border: none;">
+  <button *ngIf="mode == 'publish'" style="float: right; margin-right: 5px;" (click)="createNewForm()"
+    title="Create New Form" class="btn btn-info">
+    <span class="glyphicon glyphicon-plus-sign"></span>
+    <span> Create New Form</span>
+  </button>
+</div>
+<div *ngIf="mode == 'publish'" class="qa-set-outer" style="border: none;">
+  <button *ngIf="responseCount != 0" style="float: right; margin-right: 5px;" data-toggle="modal" data-target="#myModal" (click)="showResponses()"
+    title="Show Responses" class="btn btn-success">
+    <span class="glyphicon glyphicon-th-list"></span>
+    <span> Show Response List  </span>
+    <span class="badge">{{responseCount}}</span>
+  </button>
+  <button *ngIf="responseCount == 0" style="float: right; margin-right: 5px;" title="Show Responses" class="btn btn-success">
+    <span class="glyphicon glyphicon-remove-sign"></span>
+    <span> No Response Yet</span>
+  </button>
+</div>
+<div *ngIf="mode == 'publish'" class="alert alert-info qa-set-outer" style="border: none; padding: 4px; margin-bottom: 10px;">
+  <strong>Info!</strong> This form has been published Successfully.
+</div>
 <div class="qa-set-outer">
-  <div *ngFor="let qaSet of qaSets; let i=index" (click)="setQASetActive(i)" [class.qa-set-middle]="qaSet.isActive">
-    <div [class.qa-set-inner]="qaSet.isActive">
+  <div *ngFor="let qaSet of qaSets; let i=index" (click)="setQASetActive(i)" [class.qa-set-middle]="qaSet.isActive && mode != 'publish'">
+    <div [class.qa-set-inner]="qaSet.isActive && mode != 'publish'">
       <div>
         <app-question [mode]="mode" [text]="qaSet.question" [isActiveQA]="qaSet.isActive" (updatedText)="updateQuestion($event, i)"></app-question>
-        <app-button *ngIf="qaSet.isActive" [selectedAnswerTypeValue]="qaSet.answerType" [isRequiredValue]="qaSet.isRequired" (add)="addNewQuestion(i)"
-          (remove)="removeQuestion(i)" (selectedAnswerType)="setAnswerType($event, i)" (isRequired)="setIsQuestionRequired($event, i)"></app-button>
+        <app-button *ngIf="qaSet.isActive && mode != 'publish'" [selectedAnswerTypeValue]="qaSet.answerType" [isRequiredValue]="qaSet.isRequired"
+          (add)="addNewQuestion(i)" (remove)="removeQuestion(i)" (selectedAnswerType)="setAnswerType($event, i)" (isRequired)="setIsQuestionRequired($event, i)"></app-button>
       </div>
-      <app-multiple-choice [mode]="mode" [isActiveQA]="qaSet.isActive" *ngIf="qaSet.answerType == 'Multiple Choice'" [options]="qaSet.multipleChoice"
+      <app-multiple-choice [mode]="mode" [isActiveQA]="qaSet.isActive" *ngIf="qaSet.answerType == 'Multiple Choice'" [options]="qaSet.multipleChoices"
         (optionSet)="setMultipleChoiceOptions($event, i)"></app-multiple-choice>
       <app-paragraph [mode]="mode" [isActiveQA]="qaSet.isActive" *ngIf="qaSet.answerType == 'Paragraph'"></app-paragraph>
     </div>
   </div>
 
-  <div>
-    <button *ngIf="mode == 'create'" style="float: right;" title="Save" (click)="save()" class="btn btn-success">
+  <div *ngIf="mode != 'publish'">
+    <button *ngIf="mode == 'edit'" style="float: right;" title="Publish" (click)="publish()" class="btn btn-success">
       <span class="glyphicon glyphicon-send"></span>
       Publish
     </button>
-    <button *ngIf="mode == 'edit'" style="float: right;" title="Save" (click)="edit()" class="btn btn-success">
-      <span class="glyphicon glyphicon-send"></span>
-      Publish
+    <button *ngIf="mode == 'create'" style="float: right; margin-right: 5px;" title="Save" (click)="save()" class="btn btn-success">
+      <span class="glyphicon glyphicon-save"></span>
+      Save
     </button>
+    <!-- <button *ngIf="mode == 'view'" style="float: right; margin-right: 5px;" title="Edit" (click)="edit()" class="btn btn-success">
+      <span class="glyphicon glyphicon-edit"></span>
+      Edit
+    </button> -->
+    <button *ngIf="mode == 'edit'" style="float: right; margin-right: 5px;" title="Update" (click)="update()" class="btn btn-success">
+      <span class="glyphicon glyphicon-edit"></span>
+      Update
+    </button>
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Response List</h4>
+      </div>
+      <div class="modal-body">
+        <ul class="list-group">
+          <li class="list-group-item" data-dismiss="modal" style="cursor: pointer;" *ngFor="let responseByQuestion of responsesByQuestion"
+            (click)="openResponse(responseByQuestion.responseId)">Response ID: {{responseByQuestion.responseId}}</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
   </div>
 </div>

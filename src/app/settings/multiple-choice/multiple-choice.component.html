@@ -1,9 +1,12 @@
 <form>
   <div *ngFor="let option of options; let i=index" class="radio">
     <label class="navya-radio-text">
-      <input type="radio" class="navya-radio" name="optradio" (change)="onSelectionChange(i)" [checked]="selectedOptionIndex === i" [disabled]="mode == 'create' || mode == 'edit'">
-      <input type="text" [appEditable]="mode" class="border-less" [class.navya-radio-text]="mode == 'create' || mode == 'edit'" [readOnly]="mode == 'view' || mode == 'response'" name="radioText{{i}}" (click)="addOption(i)" [(ngModel)]="option.label">
-      <button *ngIf="(i >= 1 || options.length > 2) && (i != (options.length -1)) && this.isActiveQA && (this.mode == 'create' || this.mode == 'edit')" class="btn btn-primary round-button" type="button" (click)="removeOption(i)">
+      <input type="radio" class="navya-radio" name="optradio" (change)="onSelectionChange(i)" [checked]="selectedOptionIndex === i"
+        [disabled]="mode == 'create' || mode == 'edit' || mode == 'response' || mode == 'publish'">
+      <input type="text" [appEditable]="mode" class="border-less" [class.navya-radio-text]="mode == 'create' || mode == 'edit'"
+        [readOnly]="mode == 'view' || mode == 'response' || mode == 'publish'" name="radioText{{i}}" (click)="addOption(i)" [(ngModel)]="option.optionLabel">
+      <button *ngIf="(i >= 1 || options.length > 2) && (i != (options.length -1)) && this.isActiveQA && (this.mode == 'create' || this.mode == 'edit')"
+        class="btn btn-primary round-button" type="button" (click)="removeOption(i)">
         <span class="glyphicon glyphicon-remove"></span>
       </button>
     </label>

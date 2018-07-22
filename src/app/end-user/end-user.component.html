@@ -1,12 +1,15 @@
-<div class="qa-set-outer">
+<div *ngIf="isPublished" class="qa-set-outer">
   <div *ngFor="let qaSet of qaSets; let i=index">
     <div>
       <div>
-        <app-question [mode]="mode" [text]="qaSet.question" (updatedText)="updateQuestion($event, i)"></app-question>
+        <span *ngIf="qaSet.isRequired" style="color: red; font-size: 25px"> *</span>
+        <app-question style="display: inline-block;" [mode]="mode" [text]="qaSet.question" (updatedText)="updateQuestion($event, i)"></app-question>
       </div>
-      <app-multiple-choice [mode]="mode" *ngIf="qaSet.answerType == 'Multiple Choice'" [options]="qaSet.multipleChoice"
-        (optionSet)="setMultipleChoiceOptions($event, i)" [selectedOptionIndex]="response === undefined ? -1 : response.answers[i].multipleChoiceIndex" (updateSelectionOption)="setMultipleChoiceAnswer($event, i)" ></app-multiple-choice>
-      <app-paragraph [mode]="mode" *ngIf="qaSet.answerType == 'Paragraph'" (updatedParagraphText)="setParagraphAnswer($event, i)"></app-paragraph>
+      <app-multiple-choice [mode]="mode" *ngIf="qaSet.answerType == 'Multiple Choice'" [options]="qaSet.multipleChoices" (optionSet)="setMultipleChoiceOptions($event, i)"
+        [selectedOptionIndex]="response === undefined ? -1 : response.answers[i].multipleChoiceIndex" (updateSelectionOption)="setMultipleChoiceAnswer($event, i)"></app-multiple-choice>
+      <app-paragraph [mode]="mode" *ngIf="qaSet.answerType == 'Paragraph'" [text]="response === undefined ? '' : response.answers[i].paragraph"
+        (updatedParagraphText)="setParagraphAnswer($event, i)"></app-paragraph>
+      <span *ngIf="qaSet.isRequired && ((qaSet.answerType == 'Multiple Choice' && response.answer[i].multipleChoiceIndex == undefined) || (qaSet.answerType == 'Paragraph' && response.answer[i].paragraph == undefined))" style="color: red">Field can't be empty</span>
     </div>
   </div>
 
@@ -16,4 +19,7 @@
       Submit
     </button>
   </div>
+</div>
+<div *ngIf="!isPublished" class="alert alert-warning qa-set-outer" style="border: none; padding: 4px; margin-bottom: 10px;">
+  <strong>Warning!</strong> This form hasn't been published yet.
 </div>

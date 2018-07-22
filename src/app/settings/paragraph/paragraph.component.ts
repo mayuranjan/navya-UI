@@ -1,4 +1,10 @@
-import { Component, OnChanges, Input, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  OnChanges,
+  Input,
+  EventEmitter,
+  Output
+} from '@angular/core';
 
 @Component({
   selector: 'app-paragraph',
@@ -6,7 +12,6 @@ import { Component, OnChanges, Input, EventEmitter, Output } from '@angular/core
   styleUrls: ['./paragraph.component.css']
 })
 export class ParagraphComponent implements OnChanges {
-
   @Input() text: string;
   @Input() mode: string;
   @Input() isActiveQA: boolean;
@@ -14,7 +19,7 @@ export class ParagraphComponent implements OnChanges {
 
   public paragraphAnswer: string;
 
-  constructor() { }
+  constructor() {}
 
   ngOnChanges() {
     if (this.mode !== undefined) {
@@ -27,6 +32,9 @@ export class ParagraphComponent implements OnChanges {
         case 'view':
           break;
         case 'response':
+          if (this.text !== undefined) {
+            this.paragraphAnswer = this.text;
+          }
           break;
         default:
           break;

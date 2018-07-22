@@ -5,6 +5,7 @@ import {
   Output,
   EventEmitter
 } from '@angular/core';
+import { MultipleChoice } from '../settings.component';
 
 @Component({
   selector: 'app-multiple-choice',
@@ -15,13 +16,13 @@ export class MultipleChoiceComponent implements OnChanges {
   @Input() text: string;
   @Input() mode: string;
   @Input() isActiveQA: boolean;
-  @Input() options: Array<Option>;
+  @Input() options: Array<MultipleChoice>;
   @Input() selectedOptionIndex: number;
 
   @Output() optionSet = new EventEmitter();
   @Output() updateSelectionOption = new EventEmitter();
 
-  constructor() {}
+  constructor() { }
 
   ngOnChanges() {
     if (this.mode !== undefined) {
@@ -40,8 +41,8 @@ export class MultipleChoiceComponent implements OnChanges {
     }
 
     if (this.options !== undefined && this.options.length === 0) {
-      this.options.push(new Option('Option 1'));
-      this.options.push(new Option());
+      this.options.push(new MultipleChoice('Option 1'));
+      this.options.push(new MultipleChoice());
     }
   }
 
@@ -68,26 +69,13 @@ export class MultipleChoiceComponent implements OnChanges {
     if (this.mode === 'create' || this.mode === 'edit') {
       if (index === this.options.length - 1) {
         const label = 'Option ' + this.options.length;
-        this.options.push(new Option());
-        if (this.options[index].label === 'Add option') {
-          this.options[index].label = label;
+        this.options.push(new MultipleChoice());
+        if (this.options[index].optionLabel === 'Add option') {
+          this.options[index].optionLabel = label;
         }
       }
 
       this.optionSet.emit(this.options);
-    }
-  }
-}
-
-class Option {
-  public label: string;
-  public isSelected = false;
-
-  constructor(label?: string) {
-    if (label !== undefined) {
-      this.label = label;
-    } else {
-      this.label = 'Add option';
     }
   }
 }

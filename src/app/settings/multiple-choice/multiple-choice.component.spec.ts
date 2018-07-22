@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MultipleChoiceComponent } from './multiple-choice.component';
+import { EditableDirective } from '../../util/directive/editable/editable.directive';
+import { FormsModule } from '../../../../node_modules/@angular/forms';
 
 describe('MultipleChoiceComponent', () => {
   let component: MultipleChoiceComponent;
@@ -8,9 +10,10 @@ describe('MultipleChoiceComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MultipleChoiceComponent ]
+      declarations: [MultipleChoiceComponent, EditableDirective],
+      imports: [FormsModule]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

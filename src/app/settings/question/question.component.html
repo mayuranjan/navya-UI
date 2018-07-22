@@ -1,2 +1,2 @@
 <br>
-<input #question class="border-less" [class.with-border]="isActiveQA && (mode == 'edit' || mode == 'create')" [readonly]="mode == 'view' || mode == 'response'" appEditable (change)="updateText()" [(ngModel)]="text">
+<input #question class="border-less" [class.with-border]="isActiveQA && (mode == 'edit' || mode == 'create')" [readonly]="mode == 'view' || mode == 'response'|| mode == 'publish'" appEditable (change)="updateText()" [(ngModel)]="text">

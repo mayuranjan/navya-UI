@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ParagraphComponent } from './paragraph.component';
+import { FormsModule } from '../../../../node_modules/@angular/forms';
 
 describe('ParagraphComponent', () => {
   let component: ParagraphComponent;
@@ -7,9 +8,10 @@ describe('ParagraphComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ParagraphComponent ]
+      declarations: [ParagraphComponent],
+      imports: [FormsModule]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

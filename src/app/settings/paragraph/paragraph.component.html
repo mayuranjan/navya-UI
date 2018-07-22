@@ -1,3 +1,3 @@
 <br>
-<input class="border-less" [readOnly]="mode == 'create' || mode == 'edit'" placeholder="Your Answer" (change)="updateParagraphText()" [(ngModel)]="paragraphAnswer">
+<input class="border-less" [readOnly]="mode == 'create' || mode == 'edit' || mode == 'response' || mode == 'publish'" placeholder="Your Answer" (change)="updateParagraphText()" [(ngModel)]="paragraphAnswer">
 <br>

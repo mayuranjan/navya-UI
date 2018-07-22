@@ -18,3 +18,7 @@ div.qa-set-inner {
     box-shadow: 0px 2px 2px 0px #c8cacc;
     margin-bottom: 10px;
 }
+
+.list-group-item:hover {
+    background-color: #c8cacc;
+}

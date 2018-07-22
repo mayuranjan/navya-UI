@@ -1,4 +1,12 @@
-import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, OnChanges } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ViewChild,
+  ElementRef,
+  OnChanges
+} from '@angular/core';
 
 @Component({
   selector: 'app-question',
@@ -6,13 +14,12 @@ import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, OnChange
   styleUrls: ['./question.component.css']
 })
 export class QuestionComponent implements OnChanges {
-
   @Input() text: string;
   @Input() mode: string;
   @Input() isActiveQA: boolean;
   @Output() updatedText = new EventEmitter();
 
-  constructor() { }
+  constructor() {}
 
   ngOnChanges() {
     if (this.mode !== undefined) {
@@ -37,5 +44,4 @@ export class QuestionComponent implements OnChanges {
   public updateText() {
     this.updatedText.emit(this.text);
   }
-
 }

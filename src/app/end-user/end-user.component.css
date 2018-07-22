@@ -1,20 +1,20 @@
 div.qa-set-outer {
-    width: 80%;
-    margin:0 auto;
-    border: solid 2px black;
-    padding: 4px;
-    padding-bottom: 40px;
+  width: 80%;
+  margin: 0 auto;
+  border: solid 2px black;
+  padding: 4px;
+  padding-bottom: 40px;
 }
 
 div.qa-set-middle {
-    box-shadow: 0px -2px 2px 0px #c8cacc;
-    margin-top: 10px;
+  box-shadow: 0px -2px 2px 0px #c8cacc;
+  margin-top: 10px;
 }
 
 div.qa-set-inner {
-    border-left-width: 5px;
-    border-left-color: #97bde2;
-    border-left-style: solid;
-    box-shadow: 0px 2px 2px 0px #c8cacc;
-    margin-bottom: 10px;
+  border-left-width: 5px;
+  border-left-color: #97bde2;
+  border-left-style: solid;
+  box-shadow: 0px 2px 2px 0px #c8cacc;
+  margin-bottom: 10px;
 }

@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { QASet, SettingsComponent } from '../settings/settings.component';
+import {
+  QASet,
+  SettingsComponent,
+  MultipleChoice
+} from '../settings/settings.component';
 import { QaConfigService } from '../util/service/qaConfig/qa-config.service';
 import { ActivatedRoute, Router } from '../../../node_modules/@angular/router';
 import swal from 'sweetalert2';
@@ -9,10 +13,11 @@ import swal from 'sweetalert2';
   templateUrl: './end-user.component.html',
   styleUrls: ['./end-user.component.css']
 })
-export class EndUserComponent extends SettingsComponent implements OnInit {
-
+export class EndUserComponent extends SettingsComponent {
   public responseId: number;
-  public response: Response;
+  public response: EndUserResponse;
+
+  public isPublished: boolean;
 
   constructor(
     protected qaConfigService: QaConfigService,
@@ -22,22 +27,28 @@ export class EndUserComponent extends SettingsComponent implements OnInit {
     super(qaConfigService, _activatedRoute, _router);
     this._activatedRoute.params.subscribe(params => {
       if (params['id'] !== undefined) {
-        this.qaSets = this.qaConfigService.getQAConfig(params['id']);
-        this.mode = 'view';
+        this.qaConfigService.getQAConfig(params['id']).subscribe((result) => {
+          this.isPublished = JSON.parse(result['_body']).isPublished;
+          if (this.isPublished) {
+            this.qaSets = JSON.parse(result['_body']).value;
+          }
+          this.mode = 'view';
+          this.removeAddOptionFromMCQ();
+
+          if (params['responseId'] !== undefined) {
+            this.mode = 'response';
+            this.responseId = Number(params['responseId']);
+            this.getResponse();
+          } else {
+            this.response = new EndUserResponse();
+            this.response.questionId = this.id;
+            this.response.answers = new Array<Answer>();
+            for (let index = 0; index < this.qaSets.length; index++) {
+              this.response.answers.push(new Answer());
+            }
+          }
+        });
         this.id = Number(params['id']);
-      }
-      if (params['responseId'] !== undefined) {
-        this.qaSets.push(new QASet());
-        this.mode = 'response';
-        this.responseId = Number(params['responseId']);
-        this.response.responseId = this.responseId;
-      } else {
-        this.response = new Response();
-        this.response.questionId = this.id;
-        this.response.answers = new Array<Answer>();
-        for (let index = 0; index < this.qaSets.length; index++) {
-          this.response.answers.push(new Answer());
-        }
       }
     });
   }
@@ -62,20 +73,34 @@ export class EndUserComponent extends SettingsComponent implements OnInit {
    * submitResponse
    */
   public submitResponse() {
-    this.responseId = this.qaConfigService.submitQAResponse(this.response);
-    swal({
-      position: 'top-end',
-      type: 'success',
-      title: 'Response Submitted Successfully',
-      showConfirmButton: false,
-      timer: 1000
-    });
+    this.qaConfigService.generateResponseID().subscribe((responseId) => {
+      this.response.responseId = responseId.json();
+      this.qaConfigService.submitQAResponse(this.response).subscribe((result) => {
+        this.responseId = result.json();
+        swal({
+          position: 'top-end',
+          type: 'success',
+          title: 'Response Submitted Successfully',
+          showConfirmButton: false,
+          timer: 1000
+        });
 
-    this._router.navigate(['/form/view', this.id, this.responseId]);
+        this._router.navigate(['/form/view', this.id, this.responseId]);
+      });
+    });
+  }
+
+  /**
+   * getResponse
+   */
+  public getResponse() {
+    this.qaConfigService.getQAResponse(this.responseId).subscribe((result) => {
+      this.response = JSON.parse(result['_body']);
+    });
   }
 }
 
-export class Response {
+export class EndUserResponse {
   public responseId: number;
   public questionId: number;
   public answers: Array<Answer>;
