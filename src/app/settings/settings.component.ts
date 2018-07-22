@@ -203,6 +203,7 @@ export class SettingsComponent {
       j = 0;
     this.qaSets.forEach((qaSet: QASet) => {
       if (qaSet.answerType === 'Multiple Choice') {
+        j = 0;
         qaSet.multipleChoices.forEach((multipleChoice: MultipleChoice) => {
           if (multipleChoice.optionLabel === 'Add option') {
             this.qaSets[i].multipleChoices.splice(j, 1);
