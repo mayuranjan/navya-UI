@@ -56,4 +56,12 @@ describe('SettingsComponent', () => {
   it('should create in view mode', () => {
     expect(component.mode).toBe('create');
   });
+
+  it('should have one atleast one question', () => {
+    expect(component.qaSets.length).toBe(1);
+  });
+
+  it('should show message on deleting all questions', () => {
+    expect(component.removeQuestion(0)).toBe(false);
+  });
 });

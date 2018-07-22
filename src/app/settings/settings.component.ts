@@ -54,10 +54,15 @@ export class SettingsComponent {
   /**
    * removeQuestion
    */
-  public removeQuestion(index: number) {
-    this.qaSets.splice(index, 1);
-    console.log(this.qaSets);
-    console.log(index);
+  public removeQuestion(index: number): boolean {
+    console.log(this.qaSets.length);
+    if (this.qaSets.length === 1) {
+      swal('Error', 'Can\'t delete all the questions', 'error');
+      return false;
+    } else {
+      this.qaSets.splice(index, 1);
+      return true;
+    }
   }
 
   /**
