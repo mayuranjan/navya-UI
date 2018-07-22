@@ -73,21 +73,43 @@ export class EndUserComponent extends SettingsComponent {
    * submitResponse
    */
   public submitResponse() {
-    this.qaConfigService.generateResponseID().subscribe((responseId) => {
-      this.response.responseId = responseId.json();
-      this.qaConfigService.submitQAResponse(this.response).subscribe((result) => {
-        this.responseId = result.json();
-        swal({
-          position: 'top-end',
-          type: 'success',
-          title: 'Response Submitted Successfully',
-          showConfirmButton: false,
-          timer: 1000
-        });
+    if (!this.validateRequiredResponses()) {
+      return;
+    } else {
+      this.qaConfigService.generateResponseID().subscribe((responseId) => {
+        this.response.responseId = responseId.json();
+        this.qaConfigService.submitQAResponse(this.response).subscribe((result) => {
+          this.responseId = result.json();
+          swal({
+            position: 'top-end',
+            type: 'success',
+            title: 'Response Submitted Successfully',
+            showConfirmButton: false,
+            timer: 1000
+          });
 
-        this._router.navigate(['/form/view', this.id, this.responseId]);
+          this._router.navigate(['/form/view', this.id, this.responseId]);
+        });
       });
+    }
+  }
+
+  validateRequiredResponses(): Boolean {
+    let index = 0;
+    let isValid = true;
+    this.qaSets.forEach((qaSet) => {
+      if (qaSet.isRequired) {
+        if ((qaSet.answerType === 'Multiple Choice'
+          && this.response.answers[index].multipleChoiceIndex === undefined) ||
+          (qaSet.answerType === 'Paragraph'
+            && this.response.answers[index].paragraph === undefined)) {
+          swal('Error', '"' + qaSet.question + '" can not be left empty', 'error');
+          isValid = false;
+        }
+      }
+      ++index;
     });
+    return isValid;
   }
 
   /**
