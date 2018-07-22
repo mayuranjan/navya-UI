@@ -9,7 +9,7 @@
         [selectedOptionIndex]="response === undefined ? -1 : response.answers[i].multipleChoiceIndex" (updateSelectionOption)="setMultipleChoiceAnswer($event, i)"></app-multiple-choice>
       <app-paragraph [mode]="mode" *ngIf="qaSet.answerType == 'Paragraph'" [text]="response === undefined ? '' : response.answers[i].paragraph"
         (updatedParagraphText)="setParagraphAnswer($event, i)"></app-paragraph>
-      <span *ngIf="qaSet.isRequired && ((qaSet.answerType == 'Multiple Choice' && response.answer[i].multipleChoiceIndex == undefined) || (qaSet.answerType == 'Paragraph' && response.answer[i].paragraph == undefined))" style="color: red">Field can't be empty</span>
+      <span *ngIf="qaSet.isRequired && ((qaSet.answerType == 'Multiple Choice' && (response != undefined && response.answers[i].multipleChoiceIndex == undefined)) || (qaSet.answerType == 'Paragraph' && (response != undefined && response.answers[i].paragraph == undefined)))" style="color: red">Field can't be empty</span>
     </div>
   </div>
 
